@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:sign/screens/home_screen.dart';
+import 'package:sign/util/string_constant.dart';
 
 import 'package:sign/widget/text_field.dart';
 
 class LoginPage extends StatefulWidget {
   final ValueChanged<String>? onSubmit;
   const LoginPage({super.key, this.onSubmit});
-  
 
   @override
   State<LoginPage> createState() => _LoginClassState();
@@ -17,16 +17,35 @@ class LoginPage extends StatefulWidget {
 class _LoginClassState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   // final String _name = '';
-  final TextEditingController _controller=TextEditingController();
-  final TextEditingController _controller2=TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller2 = TextEditingController();
 
-@override
-void dispose(){
-  _controller.dispose();
-  debugPrint("statement");
-  log("message");
-  super.dispose();
-}
+  @override
+  void initState() {
+    debugPrint('==Init State==');
+    
+    super.initState();
+  }
+  
+  @override
+  void didChangeDependencies() {
+    debugPrint('==didChange State==');
+    super.didChangeDependencies();
+    
+  }
+  @override
+  void didUpdateWidget(covariant LoginPage oldWidget) {
+   debugPrint('++++++Widget Updated++++++++++');
+    super.didUpdateWidget(oldWidget);
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    debugPrint("dispose");
+    log("message");
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +54,9 @@ void dispose(){
         key: _formKey,
         child: ListView(children: [
           Container(
-            width: MediaQuery.of(context).size.width,
+            // width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.all(20),
+
             color: Colors.blue,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -43,9 +64,9 @@ void dispose(){
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  'Sign In',
-                  style: TextStyle(
+                 Text(
+                  StringConstant.signIn,
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 30,
                       fontWeight: FontWeight.w500),
@@ -55,9 +76,7 @@ void dispose(){
                 ),
                 Container(
                   alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 30),
                   color: Colors.blue,
-                  
                   child: const Text(
                     'Email',
                     style: TextStyle(
@@ -90,11 +109,7 @@ void dispose(){
                 //       ),
                 //     )),
                 TextFieldWidget(
-                
-                  
-                  //controller: _controller,
-                  controller:_controller,
-
+                    controller: _controller,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter Email id';
@@ -102,7 +117,7 @@ void dispose(){
                       if (value.length < 4) {
                         return 'Too Short';
                       }
-                      if(!value.contains('@')){
+                      if (!value.contains('@')) {
                         return '@ is required';
                       }
                       return null;
@@ -115,9 +130,6 @@ void dispose(){
                 ),
                 Container(
                   alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 30),
-                  
-                  
                   child: const Text(
                     'Password',
                     style: TextStyle(
@@ -156,28 +168,26 @@ void dispose(){
                 //     )),
 
                 TextFieldWidget(
-                 controller: _controller2,
+                  controller: _controller2,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some value';
                     }
                     if (value.length < 4) {
-                        return 'Too Short';
-                      }
+                      return 'Too Short';
+                    }
                     return null;
                   },
-
-                  
                   obscuretext: true,
                   hinttext: 'Enter Your Password',
                   images: (Icons.lock),
                 ),
+                
                 const SizedBox(
                   height: 15,
                 ),
                 Container(
                     alignment: Alignment.bottomRight,
-                    padding: const EdgeInsets.only(right: 30),
                     child: const Text(
                       'Forget Password?',
                       style: TextStyle(
@@ -187,7 +197,6 @@ void dispose(){
                     )),
                 Container(
                     alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.only(left: 30),
                     child: const Row(
                       children: [
                         Checkbox(
@@ -293,36 +302,33 @@ void dispose(){
 
   Widget buildButton(BuildContext context) {
     return ElevatedButton(
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.white),
-                    elevation: MaterialStatePropertyAll(10),
-                    padding: MaterialStatePropertyAll(
-                        EdgeInsets.fromLTRB(130, 10, 130, 10)),
-                    shadowColor: MaterialStatePropertyAll(Colors.black)),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Colors.white,
-                        content: Text(
-                          'Signing In',
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        )
-                        )
-                        );
-                  //  return  _name.isNotEmpty ? widget.onSubmit!(_name):null;
-                  Navigator.push(context, MaterialPageRoute(builder: ((context) => const HomeScreen())));
-                  }
-                },
-                child: const Text(
-                  'LOGIN',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-              );
+      style: const ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(Colors.white),
+          elevation: MaterialStatePropertyAll(10),
+          padding:
+              MaterialStatePropertyAll(EdgeInsets.fromLTRB(140, 10, 140, 10)),
+          shadowColor: MaterialStatePropertyAll(Colors.black)),
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.white,
+              content: Text(
+                'Signing In',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              )));
+        
+          Navigator.push(context,
+              MaterialPageRoute(builder: ((context) => const HomeScreen())));
+        }
+      },
+      child: const Text(
+        'LOGIN',
+        style: TextStyle(
+            color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+    );
   }
 }

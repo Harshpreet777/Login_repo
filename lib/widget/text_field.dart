@@ -22,10 +22,11 @@ class TextFieldWidget extends StatelessWidget {
     return
       
          Material(
+          
         
-          elevation: 10,
+          elevation: 15,
           shadowColor: Colors.black,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(7),
           color: Colors.blue,
           
 
@@ -47,7 +48,7 @@ class TextFieldWidget extends StatelessWidget {
                 errorBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue)),
                     errorStyle:const TextStyle(color: Colors.red,fontSize: 14,fontWeight: FontWeight.w600),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 120),
+                    
                 prefixIcon: Icon(images),
                 prefixIconColor: Colors.white,
                 hintText: hinttext,
